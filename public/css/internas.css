@@ -1,0 +1,23 @@
+.dados-table tbody tr td {
+    font-size: 11px !important;
+}
+.btn-default .nc-icon {
+    font-size: 18px !important;
+}
+.btn-default p {
+    margin-bottom: 0rem;
+}
+.navbar-form {
+    padding-left: 15px;
+    padding-right: 5px;
+}
+.navbar-form .input-group .form-control {
+    margin-left: 10px;
+    color: #000;
+    font-family: 'Montserrat';
+}
+
+.filtrosbusca {
+    margin-left: -25px;
+    margin-top: 15px;
+}
