@@ -15,7 +15,8 @@
     <link href="{{ asset('dist/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('selectpicker/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('dist/datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" />
-    <link href="{{ asset('dist/css/light-bootstrap-dashboard.css?v=2.0.0 ')}}" rel="stylesheet" />
+    <link href="{{ asset('dist/css/light-bootstrap-dashboard.css?v=2.0.0')}}" rel="stylesheet" />
+    <link href="{{ asset('dist/toast/dist/jquery.toast.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('css/internas.css?v=2.0.0 ')}}" rel="stylesheet" />
 </head>
 
@@ -137,5 +138,7 @@
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="{{asset('dist/js/light-bootstrap-dashboard.js?v=2.0.0 ')}}" type="text/javascript"></script>
 <script src="{{asset('dist/js/scripts.js')}}" type="text/javascript"></script>
+<script src="{{asset('jquerymask/dist/jquery.mask.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('dist/toast/dist/jquery.toast.min.js')}}" type="text/javascript"></script>
 @yield('js')
 </html>

@@ -31,5 +31,10 @@ Route::post('/pacientes/listar', 'PacienteController@index')->name('pacientes.in
 Route::get('/pacientes/cadastrar', 'PacienteController@create')->name('pacientes.cadastro');
 Route::post('/pacientes/cadastrar', 'PacienteController@store')->name('pacientes.cadastro.enviar');
 
+Route::get('/pacientes/{id}/liberacoes/', 'LiberacoesController@index')->name('liberacoes.index');
+Route::get('/pacientes/{id}/liberacoes/{idliberacao}/detalhes', 'LiberacoesController@show')->name('liberacoes.detalhes');
+Route::post('/pacientes/{id}/liberacoes/registrar', 'LiberacoesController@store')->name('liberacoes.store');
+
+
 Route::get('/atualizapacientes/', 'PacienteController@atualizaRegistros');
 

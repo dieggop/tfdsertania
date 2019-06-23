@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Paciente;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class PacienteController extends Controller
 {
@@ -63,16 +65,21 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
         $pacienteRequest = $request->except(['contatos','_token']);
+
+        $date = Carbon::createFromFormat('d/m/Y', $pacienteRequest['nascimento']);
+        $pacienteRequest['nascimento'] = $date;
+
         $validator = Validator::make($pacienteRequest,
             [
                 'cpf' => 'required|formato_cpf|cpf',
                 'rg' => 'required|numeric',
                 'email' => 'email',
-                'data_nascimento'=> 'date'
+                'nascimento'=> 'date'
             ]
         );
         if ($validator->fails()) {
-            return  Redirect::back()->withInput(Request::all())->withErrors($validator);
+            return  redirect()->back()->withInput($request->all())->withErrors($validator->messages());
+
         }
         $contatosRequest = $request->only(['contatos']);
 
@@ -82,13 +89,17 @@ class PacienteController extends Controller
         $paciente->fill($pacienteRequest);
         $paciente->data_cadastro = $data_cadastro;
 
-        $pacienteVerifica = Paciente::where('cpf',$paciente->cpf);
-        if (!$pacienteVerifica) {
-
+        $pacienteVerifica = Paciente::where('cpf',$paciente->cpf)->get();
+        if ($pacienteVerifica->count() > 0) {
+            return  redirect()->back()->withInput($request->all())->withErrors(['Já temos alguém com este CPF cadastrado']);
         }
 
+        $paciente->codigo = uniqid();
         $paciente->save();
-        dd($paciente);
+
+
+
+        return Redirect::to('/pacientes/listar');
 
     }
 

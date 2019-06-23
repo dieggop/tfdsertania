@@ -68,7 +68,7 @@
                         </thead>
                         <tbody>
                         @foreach($pacientes as $paciente)
-                            <tr onclick="">
+                            <tr data-id="{{$paciente->id}}" class="liberacoes">
                                 <td>{{$paciente->codigo }}</td>
                                 <td>{{$paciente->data_cadastro->format('d/m/Y')}}</td>
                                 <td>{{$paciente->nome}}</td>
@@ -103,3 +103,14 @@
     </div>
 
 @stop
+
+@section('js')
+    <script>
+        $('.liberacoes').on('click', function() {
+            var id = $(this).data('id');
+            var url = '{{ route("liberacoes.index", ":slug") }}';
+            url = url.replace(':slug', id);
+            window.location.href=url;
+        })
+    </script>
+    @stop

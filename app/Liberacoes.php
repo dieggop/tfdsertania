@@ -15,6 +15,8 @@ class Liberacoes extends Model
         'nome_pessoa',
         'discriminacao'
     ];
+    protected $dates = ['emissao'];
+
     public function paciente() {
        return $this->belongsTo(Paciente::class);
     }
