@@ -1,5 +1,10 @@
 @extends('template.master')
 @section('css')
+    <style>
+        .excluir {
+            display: none;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="row">
@@ -14,7 +19,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 d-flex justify-content-end">
-            <button class="btn btn-success"  data-toggle="modal" data-target="#myModal1">Nova Liberação</button>
+            <button class="btn btn-success novaliberacao" >Nova Liberação</button>
         </div>
     </div>
     <div class="row">
@@ -28,15 +33,24 @@
                     <table class="table table-hover table-striped dados-table">
                         <thead>
                         <th>Emissão</th>
+                        <th>Código</th>
                         <th style="width: 100px;">valor</th>
                         <th>Discriminação</th>
                         </thead>
                         <tbody>
                         @foreach($liberacoes as $liberacao)
-                            <tr data-id="{{$liberacao->id}}" class="liberacao">
-                                <td>{{$liberacao->emissao->format('d/m/Y')}}</td>
-                                <td>R$ {{number_format($liberacao->valor, 2, ',', '.')}}</td>
-                                <td>{{$liberacao->discriminacao}}</td>
+                            <tr>
+                                <td  data-id="{{$liberacao->id}}" class="liberacaoClick">{{$liberacao->emissao->format('d/m/Y')}}</td>
+                                <td  data-id="{{$liberacao->id}}" class="liberacaoClick">{{$liberacao->codigo}}</td>
+                                <td  data-id="{{$liberacao->id}}" class="liberacaoClick">R$ {{number_format($liberacao->valor, 2, ',', '.')}}</td>
+                                <td  data-id="{{$liberacao->id}}" class="liberacaoClick">{{$liberacao->discriminacao}}</td>
+                                <td>
+                                    <div class="btn-group-vertical btn-group-sm">
+                                        <a href="{{route('liberacoes.autorizacao',[$paciente->id,$liberacao->id])}}" class="btn btn-secondary  btn-sm">Autorização</a>
+                                        <a href="{{route('liberacoes.guiafatura',[$paciente->id,$liberacao->id])}}" class="btn btn-secondary  btn-sm">Guia de Fatura</a>
+                                        <a href="{{asset('download/recibo.pdf')}}" target="_blank" class="btn btn-secondary  btn-sm">Recibo</a>
+                                    </div>
+                                </td>
                             </tr >
                         @endforeach
                         </tbody>
@@ -59,23 +73,24 @@
                         <div class="card-header ">
                             <h4 class="card-title">Liberação</h4>
                         </div>
-                        <form method="post" action="{{route('liberacoes.store',$paciente->id)}}" autocomplete="off">
+                        <form method="post" class="liberacaoForm" action="{{route('liberacoes.store',$paciente->id)}}" autocomplete="off">
                             @csrf
                             <div class="card-body ">
                                     <div class="form-group">
                                         <label>Valor</label>
-                                        <input type="tel" placeholder="Digite o valor" name="valor" class="form-control valor">
+                                        <input type="tel" placeholder="Digite o valor" name="valor" class="form-control valorInput valor">
                                     </div>
                                     <div class="form-group">
                                         <label>Discriminação</label>
-                                        <textarea name="discriminacao" id="" cols="30" rows="10" class="form-control"></textarea>
+                                        <textarea name="discriminacao" id="" cols="30" rows="10" class="form-control discriminacao"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="id" value="">
+                                        <input type="hidden" name="id" class="idliberacao" value="">
                                     </div>
                             </div>
                             <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-info">Registrar</button>
+                                <button type="button" class="btn btn-fill btn-danger excluirliberacao">Excluir</button>
+                                <button type="submit" class="btn btn-fill btn-info btnregistro">Registrar</button>
                             </div>
                         </form>
 
@@ -92,13 +107,79 @@
 
 @section('js')
     <script>
-        $('.liberacoes').on('click', function() {
-            var id = $(this).data('id');
-            var url = '{{ route("liberacoes.index", ":slug") }}';
-            url = url.replace(':slug', id);
-            window.location.href=url;
+
+        $('.novaliberacao').on('click', function() {
+            $('.excluirliberacao').hide();
+            $('.liberacaoForm .btnregistro').val("Registrar")
+            $('#myModal1').modal();
+        });
+        $('.liberacaoClick').on('click', function() {
+            var idLiberacao = $(this).data('id');
+            $.get( "/pacientes/{{$paciente->id}}/liberacoes/"+idLiberacao+"/detalhes", function( data ) {
+                $('.liberacaoForm .valorInput').val(data.valor)
+                $('.liberacaoForm .discriminacao').val(data.discriminacao)
+                $('.liberacaoForm .idliberacao').val(idLiberacao)
+                $('.liberacaoForm .btnregistro').val("Alterar")
+                $('.excluirliberacao').show();
+
+                $('#myModal1').modal();
+            } );
         })
 
+        $('.excluirliberacao').on('click',function() {
+            var secure_token = '{{ csrf_token() }}';
+            var idLiberacaoExcluir = $('.liberacaoForm .idliberacao').val();
+            $.confirm({
+                title: 'Atenção!',
+                theme: 'material',
+                content: 'Você deseja excluir esta liberação?',
+                buttons: {
+                    confirm: {
+                        text: 'Sim!',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            $.ajax({
+                                url: "/pacientes/{{$paciente->id}}/liberacoes/"+idLiberacaoExcluir+"/excluir",
+                                type: 'DELETE',
+                                data: { _token: secure_token },
+                                success: function(result) {
+                                    console.log(result);
+                                    $.toast({
+                                        heading: 'Sucesso',
+                                        text: 'A liberação foi excluida',
+                                        afterHidden: function () {
+                                            window.location.href = '/pacientes/{{$paciente->id}}/liberacoes';
+                                        }
+                                    })
+                                },
+                                error: function(e) {
+                                    console.log(e)
+                                    $.toast({
+                                        heading: 'Error',
+                                        text: 'Ocorreu um erro ao tentar excluir a liberação, tente novamente',
+                                        icon: 'error',
+                                        afterHidden: function () {
+                                            window.location.href = '/pacientes/{{$paciente->id}}/liberacoes';
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+                    },
+                    cancel: {
+                        text: 'Cancelar',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                            $.alert('Cancelado!');
+                        }
+                    },
+
+                }
+            });
+
+
+        })
         $('.valor').mask('#.##0,00', {reverse: true});
 
     </script>

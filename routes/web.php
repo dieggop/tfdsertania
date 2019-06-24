@@ -32,9 +32,13 @@ Route::get('/pacientes/cadastrar', 'PacienteController@create')->name('pacientes
 Route::post('/pacientes/cadastrar', 'PacienteController@store')->name('pacientes.cadastro.enviar');
 
 Route::get('/pacientes/{id}/liberacoes/', 'LiberacoesController@index')->name('liberacoes.index');
+Route::get('/pacientes/{id}/liberacoes/print/{idliberacao}/autorizacao', 'LiberacoesController@autorizacao')->name('liberacoes.autorizacao');
+Route::get('/pacientes/{id}/liberacoes/print/{idliberacao}/guiafatura', 'LiberacoesController@guiafatura')->name('liberacoes.guiafatura');
 Route::get('/pacientes/{id}/liberacoes/{idliberacao}/detalhes', 'LiberacoesController@show')->name('liberacoes.detalhes');
+Route::delete('/pacientes/{id}/liberacoes/{idliberacao}/excluir', ['uses' =>  'LiberacoesController@destroy', 'nocsrf' => true])->name('liberacoes.excluir');
 Route::post('/pacientes/{id}/liberacoes/registrar', 'LiberacoesController@store')->name('liberacoes.store');
 
 
-Route::get('/atualizapacientes/', 'PacienteController@atualizaRegistros');
+//Route::get('/atualizapacientes/', 'PacienteController@atualizaRegistros');
+//Route::get('/codigoliberacao/', 'LiberacoesController@codigoliberacao');
 

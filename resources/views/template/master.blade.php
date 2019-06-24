@@ -17,6 +17,7 @@
     <link href="{{ asset('dist/datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('dist/css/light-bootstrap-dashboard.css?v=2.0.0')}}" rel="stylesheet" />
     <link href="{{ asset('dist/toast/dist/jquery.toast.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('dist/jquery-confirm/dist/jquery-confirm.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('css/internas.css?v=2.0.0 ')}}" rel="stylesheet" />
 </head>
 
@@ -35,7 +36,7 @@
                 </a>
             </div>
             <ul class="nav">
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a class="nav-link" href="{{route('pacientes.cadastro')}}">
                         <i class="nc-icon nc-icon nc-paper-2"></i>
                         <p>Cadastrar Pacientes</p>
@@ -61,7 +62,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg " color-on-scroll="500">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#pablo"> TFD </a>
+                <a class="navbar-brand" href="#"> TFD </a>
 
                 <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-bar burger-lines"></span>
@@ -140,5 +141,6 @@
 <script src="{{asset('dist/js/scripts.js')}}" type="text/javascript"></script>
 <script src="{{asset('jquerymask/dist/jquery.mask.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('dist/toast/dist/jquery.toast.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('dist/jquery-confirm/dist/jquery-confirm.min.js')}}" type="text/javascript"></script>
 @yield('js')
 </html>

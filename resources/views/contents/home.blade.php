@@ -26,9 +26,22 @@
                                             @csrf
                                             <input id="username" class="form-control" type="text" placeholder="Digite seu login" name="username">
                                             <input id="password" class="form-control" type="password" placeholder="E a sua senha" name="password">
-                                            <button class="btn btn-default btn-login" type="submit">Login</form>
+                                            <button class="btn btn-default btn-login" type="submit">Login</button>
                                         </form>
                                     </div>
+
+                                    @if($errors->any())
+                                        @foreach($errors->getMessages() as $this_error)
+                                            <div class="alert alert-danger">
+                                                <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                                                    <i class="nc-icon nc-simple-remove"></i>
+                                                </button>
+                                                <span>
+                                            <b> Erro - </b> {{$this_error[0]}}</span>
+                                            </div>
+
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

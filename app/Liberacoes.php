@@ -9,6 +9,7 @@ class Liberacoes extends Model
     protected $table = 'autorizacao';
     protected $fillable = [
         'id',
+        'codigo',
         'emissao',
         'valor',
         'pessoa_id',
