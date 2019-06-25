@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contatos;
 use App\Paciente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -96,9 +97,13 @@ class PacienteController extends Controller
 
         $paciente->codigo = uniqid();
         $paciente->save();
-
-
-
+        $contatos = [];
+        foreach($contatosRequest as $contato) {
+                $contatoN = new Contatos();
+                $contatoN->numero = $contato[0];
+            array_push ($contatos, $contatoN);
+        }
+        $paciente->contatos()->saveMany($contatos);
         return Redirect::to('/pacientes/listar');
 
     }
@@ -111,7 +116,8 @@ class PacienteController extends Controller
      */
     public function show($id)
     {
-        //
+        $paciente = Paciente::find($id);
+        return view("contents.pacientes_editar",compact('paciente'));
     }
 
     /**
@@ -134,7 +140,50 @@ class PacienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $paciente = Paciente::find($id);
+        if (!$paciente) {
+            return  redirect()->back()->withInput($request->all())->withErrors('Paciente não encontrado');
+        }
+
+        $pacienteRequest = $request->except(['contatos','_token']);
+        $date = Carbon::createFromFormat('d/m/Y', $pacienteRequest['nascimento']);
+        $pacienteRequest['nascimento'] = $date;
+
+        $validator = Validator::make($pacienteRequest,
+            [
+                'cpf' => 'required|formato_cpf|cpf',
+                'rg' => 'required|numeric',
+                'email' => 'email',
+                'nascimento'=> 'date'
+            ]
+        );
+        if ($validator->fails()) {
+            return  redirect()->back()->withInput($request->all())->withErrors($validator->messages());
+
+        }
+        $contatosRequest = $request->only(['contatos']);
+
+        $paciente->fill($pacienteRequest);
+        $pacienteVerifica = Paciente::where('cpf',$request->cpf)->first();
+        if ($pacienteVerifica->count() > 0 && $pacienteVerifica->id != $id) {
+            return  redirect()->back()->withInput($request->all())->withErrors(['Já temos alguém com este CPF cadastrado']);
+        }
+
+        $paciente->update();
+
+        $contatos = [];
+
+        $paciente->contatos()->delete();
+
+        foreach($contatosRequest as $contato) {
+            $contatoN = new Contatos();
+            $contatoN->numero = $contato[0];
+            array_push ($contatos, $contatoN);
+        }
+        $paciente->contatos()->saveMany([$contatos]);
+
+        return view("contents.pacientes_editar",compact('paciente'));
+
     }
 
     /**
@@ -145,7 +194,14 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pacienterec = Paciente::find($id);
+        $pacienterec->contatos()->delete();
+        $retorno = $pacienterec->delete();
+        if ($retorno) {
+            return response()->json('sucesso',200);
+        } else {
+            return response()->json('erro',400);
+        }
     }
 
     public function atualizaRegistros() {

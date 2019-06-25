@@ -30,6 +30,9 @@ Route::get('/pacientes/listar', 'PacienteController@index')->name('pacientes.ind
 Route::post('/pacientes/listar', 'PacienteController@index')->name('pacientes.index.busca');
 Route::get('/pacientes/cadastrar', 'PacienteController@create')->name('pacientes.cadastro');
 Route::post('/pacientes/cadastrar', 'PacienteController@store')->name('pacientes.cadastro.enviar');
+Route::get('/pacientes/{id}/editar', 'PacienteController@show')->name('pacientes.editar');
+Route::put('/pacientes/{id}/editar', 'PacienteController@update')->name('pacientes.editar.update');
+Route::delete('/pacientes/{id}/excluir', 'PacienteController@destroy')->name('pacientes.destroy');
 
 Route::get('/pacientes/{id}/liberacoes/', 'LiberacoesController@index')->name('liberacoes.index');
 Route::get('/pacientes/{id}/liberacoes/print/{idliberacao}/autorizacao', 'LiberacoesController@autorizacao')->name('liberacoes.autorizacao');
@@ -38,7 +41,9 @@ Route::get('/pacientes/{id}/liberacoes/{idliberacao}/detalhes', 'LiberacoesContr
 Route::delete('/pacientes/{id}/liberacoes/{idliberacao}/excluir', ['uses' =>  'LiberacoesController@destroy', 'nocsrf' => true])->name('liberacoes.excluir');
 Route::post('/pacientes/{id}/liberacoes/registrar', 'LiberacoesController@store')->name('liberacoes.store');
 
-
+Route::get('/gerarSenha', function() {
+    return bcrypt('753159');
+});
 //Route::get('/atualizapacientes/', 'PacienteController@atualizaRegistros');
 //Route::get('/codigoliberacao/', 'LiberacoesController@codigoliberacao');
 

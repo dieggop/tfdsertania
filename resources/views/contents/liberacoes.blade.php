@@ -10,6 +10,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-head d-flex justify-content-end">
+                    <div class="btn-group">
+                        <a href="{{route('pacientes.editar', $paciente->id)}}" class="btn btn-success btn-sm" >Editar Dados</a>
+                    </div>
+                </div>
                 <div class="card-body">
                     <h4>{{$paciente->nome}}</h4>
                     <h5 style="color:#000">Valor Total: R$ {{number_format($valorTotal, 2, ',', '.')}}</h5>
@@ -19,7 +24,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 d-flex justify-content-end">
-            <button class="btn btn-success novaliberacao" >Nova Liberação</button>
+            <button class="btn btn-success novaliberacao" >Cadastrar Liberação</button>
         </div>
     </div>
     <div class="row">

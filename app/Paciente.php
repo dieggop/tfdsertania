@@ -16,6 +16,7 @@ class Paciente extends Model
         'cpf',
         'rg',
         'fone',
+        'email',
         'estado_civil',
         'nascimento',
         'sexo',
