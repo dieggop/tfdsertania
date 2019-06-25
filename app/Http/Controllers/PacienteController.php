@@ -74,7 +74,7 @@ class PacienteController extends Controller
             [
                 'cpf' => 'required|formato_cpf|cpf',
                 'rg' => 'required|numeric',
-                'email' => 'email',
+                'email' => 'nullable|email',
                 'nascimento'=> 'date'
             ]
         );
@@ -153,7 +153,7 @@ class PacienteController extends Controller
             [
                 'cpf' => 'required|formato_cpf|cpf',
                 'rg' => 'required|numeric',
-                'email' => 'email',
+                'email' => 'nullable|email',
                 'nascimento'=> 'date'
             ]
         );
@@ -180,7 +180,7 @@ class PacienteController extends Controller
             $contatoN->numero = $contato[0];
             array_push ($contatos, $contatoN);
         }
-        $paciente->contatos()->saveMany([$contatos]);
+        $paciente->contatos()->saveMany($contatos);
 
         return view("contents.pacientes_editar",compact('paciente'));
 

@@ -52,7 +52,7 @@
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" required name="email" value="{{$paciente->email}}">
+                                            <input type="email" class="form-control" name="email" value="{{$paciente->email}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-1">

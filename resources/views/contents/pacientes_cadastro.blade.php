@@ -49,7 +49,7 @@
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" required name="email" value="{{old('email')}}">
+                                            <input type="email" class="form-control" name="email" value="{{old('email')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 pl-1">
