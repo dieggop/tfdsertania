@@ -41,6 +41,9 @@ Route::get('/pacientes/{id}/liberacoes/{idliberacao}/detalhes', 'LiberacoesContr
 Route::delete('/pacientes/{id}/liberacoes/{idliberacao}/excluir', ['uses' =>  'LiberacoesController@destroy', 'nocsrf' => true])->name('liberacoes.excluir');
 Route::post('/pacientes/{id}/liberacoes/registrar', 'LiberacoesController@store')->name('liberacoes.store');
 
+Route::get('/relatorios', 'RelatoriosController@index')->name('relatorios');
+Route::post('/relatorios/gerar', 'RelatoriosController@gerar')->name('relatorios.gerar');
+
 Route::get('/gerarSenha', function() {
     return bcrypt('753159');
 });

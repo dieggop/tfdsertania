@@ -14,10 +14,10 @@
     <!-- CSS Files -->
     <link href="{{ asset('dist/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('selectpicker/dist/css/bootstrap-select.min.css')}}" rel="stylesheet" />
-    <link href="{{ asset('dist/datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('dist/css/light-bootstrap-dashboard.css?v=2.0.0')}}" rel="stylesheet" />
     <link href="{{ asset('dist/toast/dist/jquery.toast.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('dist/jquery-confirm/dist/jquery-confirm.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('dist/daterangepicker/daterangepicker.css')}}" rel="stylesheet" />
     <link href="{{ asset('css/internas.css?v=2.0.0 ')}}" rel="stylesheet" />
 </head>
 
@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="./user.html">
+                    <a class="nav-link" href="{{route('relatorios')}}">
                         <i class="nc-icon nc-bell-55"></i>
                         <p>Relatórios</p>
                     </a>
@@ -132,12 +132,15 @@
 <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 <script src="{{asset('dist/js/plugins/bootstrap-switch.js')}}"></script>
 <script src="{{asset('selectpicker/dist/js/bootstrap-select.js')}}"></script>
-<script src="{{asset('dist/datetimepicker/build/js/moment.js')}}"></script>
-<script src="{{asset('dist/datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 <!--  Notifications Plugin    -->
 <script src="{{asset('dist/js/plugins/bootstrap-notify.js')}}"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="{{asset('dist/js/light-bootstrap-dashboard.js?v=2.0.0 ')}}" type="text/javascript"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <script src="{{asset('dist/js/scripts.js')}}" type="text/javascript"></script>
 <script src="{{asset('jquerymask/dist/jquery.mask.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('dist/toast/dist/jquery.toast.min.js')}}" type="text/javascript"></script>
