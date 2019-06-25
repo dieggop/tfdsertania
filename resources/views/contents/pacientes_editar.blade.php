@@ -97,7 +97,7 @@
                                     <div class="col-md-4 pr-1">
                                         <div class="form-group">
                                             <label>Data de Nascimento</label>
-                                            <input type="text" class="form-control date" required name="nascimento" value="{{$paciente->nascimento->format('d/m/Y')}}">
+                                            <input type="text" class="form-control date" required name="nascimento" value="@if ($paciente->nascimento){{$paciente->nascimento->format('d/m/Y')}}@endif">
                                         </div>
                                     </div> <div class="col-md-4 pr-1">
                                         <div class="form-group">
