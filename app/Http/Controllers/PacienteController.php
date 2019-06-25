@@ -73,7 +73,7 @@ class PacienteController extends Controller
         $validator = Validator::make($pacienteRequest,
             [
                 'cpf' => 'required|formato_cpf|cpf',
-                'rg' => 'required|numeric',
+                'rg' => 'required',
                 'email' => 'nullable|email',
                 'nascimento'=> 'date'
             ]
@@ -152,7 +152,7 @@ class PacienteController extends Controller
         $validator = Validator::make($pacienteRequest,
             [
                 'cpf' => 'required|formato_cpf|cpf',
-                'rg' => 'required|numeric',
+                'rg' => 'required',
                 'email' => 'nullable|email',
                 'nascimento'=> 'date'
             ]
