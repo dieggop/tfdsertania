@@ -56,9 +56,9 @@
         <tr>
             <td>{{$emissao->emissao->format('d/m/Y')}}</td>
             <td>{{$emissao->codigo}}</td>
-            <td>@if($emissao->paciente){{$emissao->paciente->nome}}@endif</td>
-            <td>{{$emissao->paciente->cpf}}</td>
-            <td>{{$emissao->paciente->rg}}</td>
+            <td>@if($emissao->paciente){{$emissao->paciente->nome}}@else Excluído @endif</td>
+            <td>@if($emissao->paciente){{$emissao->paciente->cpf}}@endif</td>
+            <td>@if($emissao->paciente){{$emissao->paciente->rg}}@endif</td>
             <td>R$ {{number_format($emissao->valor,2,',','')}}</td>
         </tr>
     @endforeach
