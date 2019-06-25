@@ -56,7 +56,7 @@
         <tr>
             <td>{{$emissao->emissao->format('d/m/Y')}}</td>
             <td>{{$emissao->codigo}}</td>
-            <td>{{$emissao->paciente->nome}}</td>
+            <td>@if($emissao->paciente){{$emissao->paciente->nome}}@endif</td>
             <td>{{$emissao->paciente->cpf}}</td>
             <td>{{$emissao->paciente->rg}}</td>
             <td>R$ {{number_format($emissao->valor,2,',','')}}</td>
