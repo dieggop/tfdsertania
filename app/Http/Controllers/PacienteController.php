@@ -33,15 +33,15 @@ class PacienteController extends Controller
         if ($request->has('busca')) {
             $dataForm = $request->except('_token');
             if ($request->filtro === 'cpf') {
-                $pacientes = Paciente::where('cpf', $request->busca)->orderBy('id', 'DESC')->paginate(20);
+                $pacientes = Paciente::where('cpf', $request->busca)->orderBy('nome', 'ASC')->paginate(20);
 
             } else if ($request->filtro === 'nome') {
-                $pacientes = Paciente::where('nome', 'like', '%'.$request->busca.'%')->orderBy('id', 'DESC')->paginate(20);
+                $pacientes = Paciente::where('nome', 'like', '%'.$request->busca.'%')->orderBy('nome', 'ASC')->paginate(20);
             } else {
-                $pacientes = Paciente::where('codigo', $request->busca)->orderBy('id', 'DESC')->paginate(20);
+                $pacientes = Paciente::where('codigo', $request->busca)->orderBy('nome', 'ASC')->paginate(20);
             }
         } else {
-            $pacientes = Paciente::with('contatos','liberacoes')->orderBy('id', 'DESC')->paginate(20);
+            $pacientes = Paciente::with('contatos','liberacoes')->orderBy('nome', 'ASC')->paginate(20);
         }
         return view("contents.pacientes", compact('pacientes','dataForm'));
     }
