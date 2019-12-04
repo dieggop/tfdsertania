@@ -56,7 +56,7 @@ class LiberacoesController extends Controller
     public function store(Request $request, $id)
     {
         $paciente= Paciente::find($id);
-        $emissao= \Carbon\Carbon::now();
+        $emissao= Carbon::createFromFormat('d/m/Y', $request->dataemissaoinput);
 
         $valor =  str_replace (',', '.', str_replace ('.', '', $request->valor));
         if ($request->has('id') && $request->id) {
@@ -87,6 +87,8 @@ class LiberacoesController extends Controller
     {
         $paciente= Paciente::find($id);
         $liberacao = Liberacoes::find($idliberacao);
+
+        $liberacao->emissaoret = $liberacao->emissao->format("d/m/Y");
         return response()->json($liberacao);
     }
     public function autorizacao($id,$idliberacao)

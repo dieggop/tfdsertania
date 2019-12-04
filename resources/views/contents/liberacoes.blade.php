@@ -82,6 +82,10 @@
                             @csrf
                             <div class="card-body ">
                                     <div class="form-group">
+                                        <label>Emissão</label>
+                                        <input type="text" placeholder="Digite a data" name="dataemissaoinput" class="form-control datainput dataemissaoinput">
+                                    </div>
+                                    <div class="form-group">
                                         <label>Valor</label>
                                         <input type="tel" placeholder="Digite o valor" name="valor" class="form-control valorInput valor">
                                     </div>
@@ -115,12 +119,16 @@
 
         $('.novaliberacao').on('click', function() {
             $('.excluirliberacao').hide();
+            var now = new Date();
+            var today = now.getDate()  + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+            $('.liberacaoForm .dataemissaoinput').val(today)
             $('.liberacaoForm .btnregistro').val("Registrar")
             $('#myModal1').modal();
         });
         $('.liberacaoClick').on('click', function() {
             var idLiberacao = $(this).data('id');
             $.get( "/pacientes/{{$paciente->id}}/liberacoes/"+idLiberacao+"/detalhes", function( data ) {
+                $('.liberacaoForm .dataemissaoinput').val(data.emissaoret)
                 $('.liberacaoForm .valorInput').val(data.valor)
                 $('.liberacaoForm .discriminacao').val(data.discriminacao)
                 $('.liberacaoForm .idliberacao').val(idLiberacao)
@@ -186,6 +194,7 @@
 
         })
         $('.valor').mask('#.##0,00', {reverse: true});
+        $('.datainput').mask('##/##/####', {reverse: true});
 
     </script>
     @stop
