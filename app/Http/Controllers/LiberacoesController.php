@@ -62,6 +62,7 @@ class LiberacoesController extends Controller
         if ($request->has('id') && $request->id) {
             $liberacaoRec = Liberacoes::find($request->id);
             $liberacaoRec->fill($request->all());
+            $liberacaoRec->emissao = $emissao;
             $liberacaoRec->valor = number_format($valor, 2, '.', '');
             $liberacaoRec->update();
         } else {
