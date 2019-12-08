@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Money\Money;
-use Jenssegers\Date\Date;
 
 class LiberacoesController extends Controller
 {
@@ -96,7 +95,7 @@ class LiberacoesController extends Controller
     {
         $paciente= Paciente::find($id);
         $liberacao = Liberacoes::find($idliberacao);
-        Date::setLocale('pt-BR');
+
         $extenso = $this->extenso($liberacao->valor);
         return view('recibos.autorizacao', compact('paciente','liberacao','extenso'));
     }
