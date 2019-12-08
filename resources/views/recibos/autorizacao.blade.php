@@ -37,7 +37,7 @@
     </div>
     <br><br>
 
-    Sertânia, {{$liberacao->emissao->format("d/m/Y")}}
+    Sertânia, {{$liberacao->emissao->formatLocalized('%d de %B de %G')}}
     <br>
     <br>
     <br>
