@@ -27,7 +27,7 @@
 <body onload="window.print();">
 <div class="container ">
     <div class="row  d-flex justify-content-center">
-        <img src="{{asset('dorwnload/sec-saude.PNG')}}" style="width: 500px" alt="" class="">
+        <img src="{{asset('download/sec-saude.PNG')}}" style="width: 500px" alt="" class="">
     </div>
     <div class="row text-justify mt-4">
         Autorizo efetuar o pagamento na ordem de R$ {{number_format($liberacao->valor,2)}} ({{$extenso}}), referente a TFD
@@ -47,7 +47,7 @@
     <br>
     <p class="text-center">
         <strong>Mariana Grace A. F. Patriota</strong><br>
-        Secretário(a) de Saúde
+    Secretário(a) de Saúde
     </p>
 </div>
 </body>
