@@ -37,7 +37,7 @@
     </div>
     <br><br>
 
-    Sertânia, {{$liberacao->emissao->formatLocalized('%d de %B de %G')}}
+    Sertânia, {!! $dataEmissao !!}
     <br>
     <br>
     <br>

@@ -97,7 +97,10 @@ class LiberacoesController extends Controller
         $liberacao = Liberacoes::find($idliberacao);
 
         $extenso = $this->extenso($liberacao->valor);
-        return view('recibos.autorizacao', compact('paciente','liberacao','extenso'));
+
+        $dataEmissao = $liberacao->emissao->formatLocalized("%d de %B de %G");
+
+        return view('recibos.autorizacao', compact('paciente','liberacao','extenso','dataEmissao'));
     }
     public function guiafatura($id,$idliberacao)
     {
