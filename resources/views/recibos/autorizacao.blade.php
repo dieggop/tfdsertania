@@ -46,7 +46,7 @@
     <br>
     <br>
     <p class="text-center">
-        <strong>Antônio Cajueiro Neto</strong><br>
+        <strong>Mariana Grace Araújo Ferreira Patriota</strong><br>
     Secretário(a) de Saúde
     </p>
 </div>
